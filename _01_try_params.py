@@ -19,3 +19,4 @@ print(resp.request.url)
 # 字符串格式化的另一种方式
 url = "https://www.baidu.com/{}s?wd={},{}".format("传智播客", [1, 2, 3], {"a": "1"})
 print(url)
+
