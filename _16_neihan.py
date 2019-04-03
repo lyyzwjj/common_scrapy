@@ -19,6 +19,7 @@ class Neihan:
         # 更精确匹配<li class="list_li"><div class="content">有位语文老师为学生朗诵了一首陆游的《卧春》，要求学生听写出来……</div><div class="info"><span class="right tags"><label class="tag"></label><a href="/member/4">笑话</a>,<a href="http://ishuo.cn/special/qiushibaike">糗事百科</a>,<a href="http://ishuo.cn/special/tingxie">听写</a></span><a href="/subject/5888">糗事百科之听写</a>04月29日0个评论 0人喜欢</div></li>
         content_list = re.findall(r"<li class=\"list_li\">.*?<div class=\"content\">(.*?)</div>", html_str, re.S)
         print(content_list)
+        print(len(content_list))
 
     def run(self):
         # 1.start_url
