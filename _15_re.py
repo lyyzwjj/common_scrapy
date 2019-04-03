@@ -86,3 +86,20 @@ print(a[1])  # '\n'
 b = r"a\nb"
 print(len(b))  # 4
 print(b[1])  # '\\'
+print(re.findall('a\nb', 'a\nb'))  # ['a\nb']
+print(r'a\nb' == 'a\\nb')  # True
+print(re.findall(r'a\nb', 'a\\nb'))  # []
+# r 能够忽略转移符
+# f = open("C:\Users\Wjj\Desktop\test.txt", "r") # 报错
+# f = open(r"C:\Users\Wjj\Desktop\test.txt", "r") # 解决加个r  等于转移符前面自动加上\
+print(re.findall(r"a.*bc", "a\nbc", re.DOTALL))  # ['a\nbc']
+print(re.findall(r"a(.*)bc", "a\nbc", re.DOTALL))  # (.*) 我们需要的部分用(.*)代理可以取出来  ['\n']
+
+# *表示贪婪  *?表示非贪婪模式
+b = "abcbcbcbcddd"
+print(re.findall("a(.*)d", b))  # ['bcbcbcbcdd'] 一直到最后是d
+print(re.findall("a(.*)dd", b))  # ['bcbcbcbcd'] 一直到最后是dd
+print(re.findall("a(.*?)d", b))  # ['bcbcbcbc'] 碰到第一个d就结束
+print(re.findall("a(.*?)dd", b))  # ['bcbcbcbc'] 碰到第一个dd就结束
+print(re.findall("a.*d", b))  # ['abcbcbcbcddd'] 贪婪 取全部
+print(re.findall("a.*?dd", b))  # ['abcbcbcbcdd'] 不贪婪 取全部
