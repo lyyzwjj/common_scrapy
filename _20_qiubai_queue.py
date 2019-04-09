@@ -34,7 +34,7 @@ class QuibaiSpider:
             # return response.content
             # return response.content.decode()
             self.html_queue.put(response.content.decode())
-            self.html_queue.task_done()
+            self.url_queue.task_done()
 
     def get_content_list(self):
         while True:
@@ -58,18 +58,18 @@ class QuibaiSpider:
                 item["stats_vote"] = item["stats_vote"][0] if len(item["stats_vote"]) > 0 else None
                 content_list.append(item)
             self.content_queue.put(content_list)
-            self.content_queue.task_done()
+            self.html_queue.task_done()
 
     def save_content_list(self):  # 保存数据
         while True:
             content_list = self.content_queue.get()
-            file_path = "qiubai.txt"
+            file_path = "qiubai_queue.txt"
             with open(file_path, "a", encoding="utf-8") as f:
                 for content in content_list:
                     f.write(json.dumps(content, ensure_ascii=False, indent=2))
                     f.write("\n")
+            print("保存成功")
             self.content_queue.task_done()
-        print("保存成功")
 
     def run(self):
         thread_list = []
