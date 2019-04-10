@@ -21,6 +21,7 @@ ret1 = json.loads(html_str)
 # print(type(ret1))
 # json.dumps能够把python类型转化为json字符串
 with open("douban.json", "w", encoding="utf-8") as f:
+    # indent = 4 缩进4格 一个tab
     f.write(json.dumps(ret1, ensure_ascii=False, indent=4))
     # f.write(str(ret1))
 

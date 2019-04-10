@@ -33,11 +33,12 @@ class BaiduMapSpider:
 
     def save_addr(self, item, content, name, content_name, *args):
         if content.get(content_name) is None:
-            item[name] = []
+            item[name] = {}
             for arg in args:
-                item[name].append(content[arg])
+                item[name][arg] = content[arg]
+            item[name] = json.dumps(item[name], ensure_ascii=False)
         else:
-            item[name] = content[content_name]
+            item[name] = json.dumps(content[content_name], ensure_ascii=False)
 
     def run(self):
         pn = 0
@@ -52,15 +53,15 @@ class BaiduMapSpider:
             if obj.get("content") is not None:
                 for content in obj["content"]:
                     item = {}
-                    item["name"] = content["name"]
+                    item["name"] = json.dumps(content["name"], ensure_ascii=False)
                     # item["addr"] = content["address_norm"]
                     self.save_addr(item, content, "addr", "address_norm", "area_name", "addr")
-                    item["navi_x"] = content["navi_x"]
-                    item["navi_y"] = content["navi_y"]
+                    item["x"] = json.dumps(content["x"], ensure_ascii=False)
+                    item["y"] = json.dumps(content["y"], ensure_ascii=False)
                     try:
-                        item["phone"] = content["ext"]["detail_info"]["phone"]
+                        item["phone"] = json.dumps(content["ext"]["detail_info"]["phone"], ensure_ascii=False)
                     except KeyError:
-                        item["phone"] = None
+                        item["phone"] = json.dumps(None, ensure_ascii=False)
                     content_list.append(item)
                 pn += 1
             else:
@@ -70,5 +71,5 @@ class BaiduMapSpider:
 
 
 if __name__ == '__main__':
-    map = BaiduMapSpider("太平", "289")
+    map = BaiduMapSpider("太平人寿", "289")
     map.run()

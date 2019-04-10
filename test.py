@@ -5,3 +5,5 @@ for key in dict.keys():
     print(key)
     print(dict[key])
 print(dict.get("b"))
+import json
+print(json.dumps(dict))
